@@ -36,7 +36,7 @@ For each (edge.color = {X, white}, order = {red,green,orange,blue}):
         Rotate.(edge.color.X.pos) -> edge.pos = {yellow, edge.color.X.pos}
         Rotate.yellow: 1
         Rotate.reverseStep: -2
-        Rotate.yellow -> edge.pos = {yellow + X}
+        Rotate.yellow -> edge.pos = {yellow, X}
         Rotate.X: 2
 
 Rotate.Cube -> front = red
@@ -112,6 +112,77 @@ for each(edge.color = {X, Y}, order = {red,green,orange,blue}):
         rotate.yellow: 1
         rotate.X: 1
 
+//yellow edges
+//facing up
+repeatUntil(
+    for each(edge.color = {yellow, X}):
+        edge.color.yellow.pos = color.yellow.pos
+    ):
+        if(cube.front.edges.top.color.yellow.pos != color.yellow.pos & cube.left.edges.top.color.yellow.pos = color.yellow.pos):
+            rotate.front: 1
+            rotate.right: 1
+            rotate.yellow: 1
+            rotate.right: -1
+            rotate.yellow: -1
+            rotate.front: -1
+        else if(
+            for each(edge.color = {yellow, X}):
+                edge.color.yellow.pos != color.yellow.pos
+        ):
+            rotate.front: 1
+            rotate.right: 1
+            rotate.yellow: 1
+            rotate.right: -1
+            rotate.yellow: -1
+            rotate.front: -1
+        else:
+            rotate.yellow: 1
+)
+//switch
+//red
+rotate.yellow -> color.red.edges.yellow.pos = {yellow, red}
+//blue
+if(color.blue.edges.yellow.pos != color.blue.pos):
+    rotate.yellow: 2
+    if(color.blue.edges.yellow.pos = color.blue.pos):
+        rotate.right: 1
+        rotate.yellow: 1
+        rotate.right: -1
+        rotate.yellow: 1
+        rotate.right: 1
+        rotate.yellow: 2
+        rotate.right: -1
+        rotate.yellow: 2
+        
+        rotate.right: 1
+        rotate.yellow: 1
+        rotate.right: -1
+        rotate.yellow: 1
+        rotate.right: 1
+        rotate.yellow: 2
+        rotate.right: -1
+        rotate.yellow: 2
+    else:
+        rotate.yellow: 1
+        rotate.right: 1
+        rotate.yellow: 1
+        rotate.right: -1
+        rotate.yellow: 1
+        rotate.right: 1
+        rotate.yellow: 2
+        rotate.right: -1
+        rotate.yellow: 2
+//green + orange
+if(color.green.edges.yellow.pos != color.green.pos):
+    rotate.yellow: 2
+    rotate.right: 1
+    rotate.yellow: 1
+    rotate.right: -1
+    rotate.yellow: 1
+    rotate.right: 1
+    rotate.yellow: 2
+    rotate.right: -1
+    rotate.yellow: -1
 
 
 
