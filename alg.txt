@@ -5,9 +5,9 @@ Rotate.Cube -> top = red
 For each (edge.color = {X, white}, order = {red,green,orange,blue}):
 
     //white edge at yellow
-    if (edge.pos = {yellow, Y}):
+    if (edge.pos = {yellow, A}):
         Rotate.yellow -> edge.pos = {yellow, X}
-        If (edge.color.X = color.X):
+        If (edge.color.X.pos = color.X.pos):
             Rotate.X: 2
         Else:
             Rotate.yellow: -1
@@ -16,7 +16,7 @@ For each (edge.color = {X, white}, order = {red,green,orange,blue}):
             Rotate.X+1: 1
 
     //white edge at white
-    Else if (edge.pos = {white, Y}):
+    Else if (edge.pos = {white, A}):
         If (edge.color.white.pos = color.white.pos):
             Rotate.white -> edge.color.X = color.X
             Rotate.X: 1
@@ -65,6 +65,55 @@ for each(corner.color = {X,Y,white}, order = {red,green,orange,blue}):
             rotate.yellow: 1
             rotate.(corner.color.X + 1): -1
             rotate.yellow: -1
+
+//middle edges
+for each(edge.color = {X, Y}, order = {red,green,orange,blue}):
+
+    //edges at yellow
+    if(edge.pos = {yellow, A}):
+        rotate.yellow -> edge.pos = {yellow, X}
+        if (edge.color.X.pos = color.X.pos):
+            rotate.yellow: 1
+            rotate.(X + 1): 1
+            rotate.yellow: -1
+            rotate.(X + 1): -1
+            rotate.yellow: -1
+            rotate.X: -1
+            rotate.yellow: 1
+            rotate.X: 1
+        else:
+            rotate.yellow: 2
+            rotate.X: -1
+            rotate.yellow: 1
+            rotate.X: 1
+            rotate.yellow: 1
+            rotate.(X + 1): 1
+            rotate.yellow: -1
+            rotate.(X + 1): -1
+    
+    //edge in middle
+    else:
+        pos = edge.color.X.pos
+        rotate.(edge.color.X.pos): -1
+        rotate.yellow: -1
+        rotate.reverseStep: -2
+        rotate.yellow: 1
+        rotate.(pos + 1): 1
+        rotate.yellow: 1
+        rotate.(pos + 1): -1
+        //edge at yellow
+        rotate.yellow -> edge.pos = {yellow, X}
+        rotate.yellow: 1
+        rotate.(X + 1): 1
+        rotate.yellow: -1
+        rotate.(X + 1): -1
+        rotate.yellow: -1
+        rotate.X: -1
+        rotate.yellow: 1
+        rotate.X: 1
+
+
+
 
 
 
