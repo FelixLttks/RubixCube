@@ -56,7 +56,7 @@ for each(corner.color = {X,Y,white}, order = {red,green,orange,blue}):
     
     //white corner at white 
     else:
-        rotate.(corner.pos.!=white[0-2]): -1
+        rotate.(corner.color.!=white[0-2]): -1
         rotate.yellow: 1
         rotate.reverseStep: -2
         rotate.yellow -> corner.pos = {yellow, X, Y}
@@ -184,7 +184,59 @@ if(color.green.edges.yellow.pos != color.green.pos):
     rotate.right: -1
     rotate.yellow: -1
 
+if(
+    for each(corner.color = {yellow, X, Y}, order = {red,green,orange,blue}):
+        corner.pos = {yellow, X, Y}
+    = 0):
+        //no matching corners
+        rotate.yellow: 1
+        rotate.right: 1
+        rotate.yellow: -1
+        rotate.left: -1
+        rotate.yellow: 1
+        rotate.right: -1
+        rotate.yellow: -1
+        rotate.left: 1
+        rotate.cube.y -> cube.front.corners.topRight.pos = {yellow, cube.front, cube.right}
+        repeatUntil(cube.front.corners.topLeft.pos = {yellow, cube.front, cube.left}):
+            rotate.yellow: 1
+            rotate.right: 1
+            rotate.yellow: -1
+            rotate.left: -1
+            rotate.yellow: 1
+            rotate.right: -1
+            rotate.yellow: -1
+            rotate.left: 1
+else:
+    rotate.cube.y -> cube.front.corners.topRight.pos = {yellow, cube.front, cube.right}
+    repeatUntil(cube.front.corners.topLeft.pos = {yellow, cube.front, cube.left}):
+        rotate.yellow: 1
+        rotate.right: 1
+        rotate.yellow: -1
+        rotate.left: -1
+        rotate.yellow: 1
+        rotate.right: -1
+        rotate.yellow: -1
+        rotate.left: 1
 
+rotate.cube -> top = white
+
+repeatUntil(
+    for each(corner.color = {yellow, X, Y}, order = {red,green,orange,blue}):
+        corner.color.yellow.pos = color.yellow.pos
+    = 4):
+        repeatUntil(cube.front.corners.bottomRight.color.yellow.pos = color.yellow.pos):
+            rotate.right: 1
+            rotate.yellow: 1
+            rotate.right: -1
+            rotate.yellow: -1
+            rotate.right: 1
+            rotate.yellow: 1
+            rotate.right: -1
+            rotate.yellow: -1
+        rotate.yellow: 1
+
+rotate.yellow -> cube.front.edges.bottom.color.!yellow.pos = cube.front
 
 
 
