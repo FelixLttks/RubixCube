@@ -1,0 +1,42 @@
+Rotate.Cube -> front = white
+Rotate.Cube -> top = red
+
+//white edges
+For each (edge.color = {X, white}, order = {red,green,orange,blue}):
+
+    //white edge at yellow
+    if (edge.pos = {yellow, Y}):
+        Rotate.yellow -> edge.pos = {yellow, X}
+        If (edge.color.X = color.X):
+            Rotate.X: 2
+        Else:
+            Rotate.yellow: -1
+            Rotate.X+1: -1
+            Rotate.X: 1
+            Rotate.X+1: 1
+
+    //white edge at white
+    Else if (edge.pos = {white, Y}):
+        If (edge.color.white.pos = color.white.pos):
+            Rotate.white -> edge.color.X = color.X
+            Rotate.X: 1
+            Rotate.reverseStep: -2
+            Rotate.X: -1
+        else:
+            Rotate.(edge.color != X): 2
+            //white edge is at yellow
+            Rotate.yellow -> edge.pos = {yellow, X}
+            Rotate.yellow: -1
+            Rotate.X+1: -1
+            Rotate.X: 1
+            Rotate.X+1: 1
+
+    //white edge in middle
+    else:
+        Rotate.(edge.color.X.pos) -> edge.pos = {yellow, edge.color.X.pos}
+        Rotate.yellow: 1
+        Rotate.reverseStep: -2
+        Rotate.yellow -> edge.pos = {yellow + X}
+        Rotate.X: 2
+
+
