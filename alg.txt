@@ -23,7 +23,7 @@ For each (edge.color = {X, white}, order = {red,green,orange,blue}):
             Rotate.reverseStep: -2
             Rotate.X: -1
         else:
-            Rotate.(edge.color != X): 2
+            Rotate.(edge.color.white.pos): 2
             //white edge is at yellow
             Rotate.yellow -> edge.pos = {yellow, X}
             Rotate.yellow: -1
@@ -38,5 +38,11 @@ For each (edge.color = {X, white}, order = {red,green,orange,blue}):
         Rotate.reverseStep: -2
         Rotate.yellow -> edge.pos = {yellow + X}
         Rotate.X: 2
+
+Rotate.Cube -> front = red
+Rotate.Cube -> top = yellow
+
+//white corners
+
 
 
