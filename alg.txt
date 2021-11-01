@@ -74,13 +74,14 @@ for each(edge.color = {X, Y}, order = {red,green,orange,blue}):
         rotate.yellow -> edge.pos = {yellow, X}
         if (edge.color.X.pos = color.X.pos):
             rotate.yellow: 1
-            rotate.(X + 1): 1
+            rotate.right: 1
             rotate.yellow: -1
-            rotate.(X + 1): -1
+            rotate.right: -1
             rotate.yellow: -1
-            rotate.X: -1
+            rotate.cube.y: 1
+            rotate.left: -1
             rotate.yellow: 1
-            rotate.X: 1
+            rotate.left: 1
         else:
             rotate.yellow: 2
             rotate.X: -1
@@ -93,24 +94,26 @@ for each(edge.color = {X, Y}, order = {red,green,orange,blue}):
     
     //edge in middle
     else:
-        pos = edge.color.X.pos
-        rotate.(edge.color.X.pos) -> edge.pos = {yellow, A}
-        rotate.yellow: -1
-        rotate.reverseStep: -2
-        rotate.yellow: 1
-        rotate.(pos + 1): 1
-        rotate.yellow: 1
-        rotate.(pos + 1): -1
+        rotate.cube.y -> cube.front.edges.right = edge
+        rotate.right: 1
+        rotate.top: -1
+        rotate.right: -1
+        rotate.top: -1
+        rotate.front: -1
+        rotate.top: 1
+        rotate.front: 1
+        rotate.cube.y -> cube.front.color = X
         //edge at yellow
-        rotate.yellow -> edge.pos = {yellow, X}
-        rotate.yellow: 1
-        rotate.(X + 1): 1
-        rotate.yellow: -1
-        rotate.(X + 1): -1
-        rotate.yellow: -1
-        rotate.X: -1
-        rotate.yellow: 1
-        rotate.X: 1
+        rotate.top -> edge.pos = {yellow, X}
+        rotate.top: 1
+        rotate.right: 1
+        rotate.top: -1
+        rotate.right: -1
+        rotate.top: -1
+        rotate.cube.y: 1
+        rotate.left: -1
+        rotate.top: 1
+        rotate.left: 1
 
 //yellow edges
 //facing up
