@@ -43,6 +43,28 @@ Rotate.Cube -> front = red
 Rotate.Cube -> top = yellow
 
 //white corners
+for each(corner.color = {X,Y,white}, order = {red,green,orange,blue}):
+
+    //white corner at yellow
+    if(corner.pos = {yellow, A, B}):
+        rotate.yellow -> corner.pos = {yellow, X, Y}
+        repeatUntil(corner.pos = {white, X, Y} & corner.color.white.pos = color.white.pos):
+            rotate.(corner.color.X + 1): 1
+            rotate.yellow: 1
+            rotate.(corner.color.X + 1): -1
+            rotate.yellow: -1
+    
+    //white corner at white 
+    else:
+        rotate.(corner.pos.!=white[0-2]): -1
+        rotate.yellow: 1
+        rotate.reverseStep: -2
+        rotate.yellow -> corner.pos = {yellow, X, Y}
+        repeatUntil(corner.pos = {white, X, Y} & corner.color.white.pos = color.white.pos):
+            rotate.(corner.color.X + 1): 1
+            rotate.yellow: 1
+            rotate.(corner.color.X + 1): -1
+            rotate.yellow: -1
 
 
 
