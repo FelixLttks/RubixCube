@@ -51,9 +51,9 @@ for each(corner.color = {X,Y,white}, order = {red,green,orange,blue}):
     if(corner.pos = {yellow, A, B}):
         rotate.yellow -> corner.pos = {yellow, X, Y}
         repeatUntil(corner.pos = {white, X, Y} & corner.color.white.pos = color.white.pos):
-            rotate.(color.X + 1): 1
-            rotate.yellow: 1
-            rotate.(color.X + 1): -1
+            rotate.right: 1
+            rotate.top: 1
+            rotate.right: -1
             rotate.yellow: -1
     
     //white corner at white 
@@ -70,6 +70,8 @@ for each(corner.color = {X,Y,white}, order = {red,green,orange,blue}):
 
 //middle edges
 for each(edge.color = {X, Y}, order = {red,green,orange,blue}):
+
+    Rotate.Cube -> front = X
 
     //edges at yellow
     if(edge.pos = {yellow, A}):
